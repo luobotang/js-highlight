@@ -532,8 +532,8 @@ CallExpression
       }
     )
     rest:(
-        s:__ args:Arguments {
-          return s + args
+        s:__ arg:Arguments {
+          return s + arg
         }
       / s1:__ "[" s2:__ property:Expression s3:__ "]" {
         return s1 + '[' + s2 + property + s3 + ']'
@@ -547,18 +547,26 @@ CallExpression
     }
 
 Arguments
-  = "(" s:__ args:(ArgumentList __)? ")" {
-    return '(' + s + (args || '') + ')'
-  }
+  = "("
+      s:__
+      args:(
+        arg:ArgumentList s:__ { return arg + s }
+      )?
+    ")"
+    {
+      return '(' + s + (args || '') + ')'
+    }
 
 ArgumentList
-  = first:AssignmentExpression rest:(
-      s1:__ "," s2:__ assign:AssignmentExpression {
-        return s1 + ',' + s2 + assign
+  = first:AssignmentExpression
+    rest:(
+      s1:__ "," s2:__ express:AssignmentExpression {
+        return s1 + ',' + s2 + express
       }
-    )* {
-    return first + rest.join('')
-  }
+    )*
+    {
+      return first + rest.join('')
+    }
 
 LeftHandSideExpression
   = CallExpression
@@ -819,14 +827,22 @@ AssignmentOperator
   / "|="
 
 Expression
-  = first:AssignmentExpression rest:(__ "," __ AssignmentExpression)* {
-    return first + rest.join('')
-  }
+  = first:AssignmentExpression
+    rest:(
+      s1:__ "," s2:__ ex:AssignmentExpression {
+        return s1 + ',' + s2 + ex
+      }
+    )*
+    { return first + rest.join('') }
 
 ExpressionNoIn
-  = first:AssignmentExpressionNoIn rest:(__ "," __ AssignmentExpressionNoIn)* {
-    return first + rest.join('')
-  }
+  = first:AssignmentExpressionNoIn
+    rest:(
+      s1:__ "," s2:__ ex:AssignmentExpressionNoIn {
+        return s1 + ',' + s2 + ex
+      }
+    )*
+    { return first + rest.join('') }
 
 /* ----- A.4 Statements ----- */
 
@@ -890,7 +906,8 @@ VariableDeclaration
   = id:Identifier
     init:(
       s:__ init:Initialiser { return s + init }
-    )? {
+    )?
+    {
       return id + (init || '')
     }
 
@@ -898,7 +915,8 @@ VariableDeclarationNoIn
   = id:Identifier
     init:(
       s:__ init:InitialiserNoIn { return s + init }
-    )? {
+    )?
+    {
       return id + (init || '')
     }
 
@@ -1023,18 +1041,18 @@ DebuggerStatement
 
 FunctionDeclaration
   = func:FunctionToken s1:__ id:Identifier s2:__
-    "(" s3:__ params:(FormalParameterList __)? ")" s4:__
+    "(" s3:__ params:(p:FormalParameterList s:__ {return p + s})? ")" s4:__
     "{" s5:__ body:FunctionBody s6:__ "}"
     {
       return highlight('reserveword', func) +
         s1 + id + s2 +
-        '(' + s3 + params + ')' + s4 +
+        '(' + s3 + (params || '') + ')' + s4 +
         '{' + s5 + body + s6 + '}'
     }
 
 FunctionExpression
   = FunctionToken s1:__ id:(Identifier __)?
-    "(" s3:__ params:(FormalParameterList __)? ")" s4:__
+    "(" s3:__ params:(p:FormalParameterList s:__ {return p + s})? ")" s4:__
     "{" s5:__ body:FunctionBody s6:__ "}"
     {
       return highlight('reserveword', func) +
@@ -1044,13 +1062,13 @@ FunctionExpression
     }
 
 FormalParameterList
-  = first:Identifier rest:(
+  = first:Identifier
+    rest:(
       s1:__ "," s2:__ id:Identifier {
         return s1 + ',' + s2 + id
       }
-    )* {
-    return first + rest.join('')
-  }
+    )*
+    { return first + rest.join('') }
 
 FunctionBody = eles:SourceElements? { return eles || '' }
 
