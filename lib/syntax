@@ -528,7 +528,7 @@ NewExpression
 CallExpression
   = first:(
       callee:MemberExpression s:__ args:Arguments {
-        return callee + s + args
+        return highlight('callee', callee) + s + args
       }
     )
     rest:(
