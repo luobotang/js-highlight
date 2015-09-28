@@ -1,0 +1,31 @@
+{
+  "name": "js-highlight",
+  "version": "0.1.0",
+  "description": "Highlight JavaScript code.",
+  "main": "highlight.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-uglify": "^0.9.2",
+    "pegjs": "^0.9.0"
+  },
+  "scripts": {
+    "build": "grunt",
+    "test": "start test/test.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luobotang/js-highlight.git"
+  },
+  "author": "luobotang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luobotang/js-highlight/issues"
+  },
+  "homepage": "https://github.com/luobotang/js-highlight#readme"
+}

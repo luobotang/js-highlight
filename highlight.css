@@ -1,0 +1,17 @@
+@charset "UTF-8";
+.highlight {
+  font-family: consolas, monospace;
+}
+.highlight-comment {
+  color: green;
+}
+.highlight-string {
+  color: red;
+}
+.highlight-reserveword {
+  color: blue;
+}
+.highlight-number,
+.highlight-regex {
+  color: orange;
+}
