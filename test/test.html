@@ -1,22 +1,109 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>js-highlight</title>
-	<link rel="stylesheet" href="../highlight.css">
+<meta charset="UTF-8">
+<title>js-highlight</title>
+<style>
+* { margin: 0; padding: 0; }
+body { font: 14px/1.7 arial, "Microsoft Yahei", sans-serif; color: #333; }
+#container { margin: 30px auto; width: 600px; }
+pre { margin: 1em 0; padding: 1em; border: 1px solid #ccc; border-radius: 5px; }
+</style>
+<link rel="stylesheet" href="../highlight.css">
 </head>
 <body>
-	<pre class="highlight" data-src="test-code"></pre>
+<div id="container">
+    <p>普通语句</p>
+    <pre class="highlight" data-src="test-code"></pre>
+    <p>控制语句</p>
+    <pre class="highlight" data-src="code-statement"></pre>
+    <p>循环语句</p>
+    <pre class="highlight" data-src="code-iteration"></pre>
+    <p>运算</p>
+    <pre class="highlight" data-src="code-bit"></pre>
+    <p>表达式</p>
+    <pre class="highlight" data-src="code-expression"></pre>
+</div>
 <script id="test-code" type="text/sourcecode">
 var num = 1e-3;
-var name = "luobo"; // name
-/* hello, world */
+var num2 = 1000 + 20.25,
+    name = "luobo"; // name
+/*
+ * hello, world
+ */
 function test() {
     console.log('Hello, world! ' + name)
 }
 var reg = /[0-9]\s+/ig;
-test('me')
+
+test()
 window.test(name)
+a.b()
+
+var arr = [1, "hello", { name: 'luobo', age: 18 }];
+
+var obj = {
+    name: 'luobo',
+    age: 18
+}
+</script>
+<script id="code-statement" type="text/sourcecode">
+if (a > b) {
+    console.log('big')
+} else {
+    console.log('small')
+}
+
+try {
+    var ele = parse(html)
+} catch (e) {
+    console.log('error in parse html')
+} finally {
+    console.log(ele)
+}
+</script>
+<script id="code-bit" type="text/sourcecode">
+c = a + b
+c = a - b
+c = a * b
+c = a / b
+c = a % b
+
+c = a | b
+c = a & b
+c = a ^ b
+c = ~b
+
+c = a << 2
+c = b >> 2
+c = b >>> 2
+
+c = a && b
+c = a || b
+c = !a
+
+c = condition ? a : b
+</script>
+<script id="code-iteration" type="text/sourcecode">
+for (var i in arr) {
+    if (i !== 'name') console.log(arr[i])
+}
+
+for (var i = 0, len = arr.length; i < len; i++) {
+    console.log(arr[i])
+}
+
+do {
+    i++;
+    nums.push(i);
+} while (i < 100)
+
+while (i < 100) {
+    console.log(i++)
+}
+</script>
+<script id="code-expression" type="text/sourcecode">
+new Date().getTime()
 </script>
 <script src="../highlight.js"></script>
 </body>

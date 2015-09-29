@@ -3,75 +3,6 @@
  */
 
 {
-  var TYPES_TO_PROPERTY_NAMES = {
-    CallExpression:   "callee",
-    MemberExpression: "object",
-  };
-
-  function filledArray(count, value) {
-    var result = new Array(count), i;
-
-    for (i = 0; i < count; i++) {
-      result[i] = value;
-    }
-
-    return result;
-  }
-
-  function extractOptional(optional, index) {
-    return optional ? optional[index] : null;
-  }
-
-  function extractList(list, index) {
-    var result = new Array(list.length), i;
-
-    for (i = 0; i < list.length; i++) {
-      result[i] = list[i][index];
-    }
-
-    return result;
-  }
-
-  function buildList(first, rest, index) {
-    return [first].concat(extractList(rest, index));
-  }
-
-  function buildTree(first, rest, builder) {
-    var result = first, i;
-
-    for (i = 0; i < rest.length; i++) {
-      result = builder(result, rest[i]);
-    }
-
-    return result;
-  }
-
-  function buildBinaryExpression(first, rest) {
-    return buildTree(first, rest, function(result, element) {
-      return {
-        type:     "BinaryExpression",
-        operator: element[1],
-        left:     result,
-        right:    element[3]
-      };
-    });
-  }
-
-  function buildLogicalExpression(first, rest) {
-    return buildTree(first, rest, function(result, element) {
-      return {
-        type:     "LogicalExpression",
-        operator: element[1],
-        left:     result,
-        right:    element[3]
-      };
-    });
-  }
-
-  function optionalList(value) {
-    return value !== null ? value : [];
-  }
-
   // output highlighted html fragment
   function highlight(classname, str) {
     return '<span class="highlight-' + classname + '">' + str + '</span>'
@@ -377,44 +308,44 @@ Zs = [\u0020\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000]
 
 /* Tokens */
 
-BreakToken      = "break"      !IdentifierPart { return  "break"      }
-CaseToken       = "case"       !IdentifierPart { return  "case"       }
-CatchToken      = "catch"      !IdentifierPart { return  "catch"      }
-ClassToken      = "class"      !IdentifierPart { return  "class"      }
-ConstToken      = "const"      !IdentifierPart { return  "const"      }
-ContinueToken   = "continue"   !IdentifierPart { return  "continue"   }
-DebuggerToken   = "debugger"   !IdentifierPart { return  "debugger"   }
-DefaultToken    = "default"    !IdentifierPart { return  "default"    }
-DeleteToken     = "delete"     !IdentifierPart { return  "delete"     }
-DoToken         = "do"         !IdentifierPart { return  "do"         }
-ElseToken       = "else"       !IdentifierPart { return  "else"       }
-EnumToken       = "enum"       !IdentifierPart { return  "enum"       }
-ExportToken     = "export"     !IdentifierPart { return  "export"     }
-ExtendsToken    = "extends"    !IdentifierPart { return  "extends"    }
-FalseToken      = "false"      !IdentifierPart { return  "false"      }
-FinallyToken    = "finally"    !IdentifierPart { return  "finally"    }
-ForToken        = "for"        !IdentifierPart { return  "for"        }
-FunctionToken   = "function"   !IdentifierPart { return  "function"   }
-GetToken        = "get"        !IdentifierPart { return  "get"        }
-IfToken         = "if"         !IdentifierPart { return  "if"         }
-ImportToken     = "import"     !IdentifierPart { return  "import"     }
-InstanceofToken = "instanceof" !IdentifierPart { return  "instanceof" }
-InToken         = "in"         !IdentifierPart { return  "in"         }
-NewToken        = "new"        !IdentifierPart { return  "new"        }
-NullToken       = "null"       !IdentifierPart { return  "null"       }
-ReturnToken     = "return"     !IdentifierPart { return  "return"     }
-SetToken        = "set"        !IdentifierPart { return  "set"        }
-SuperToken      = "super"      !IdentifierPart { return  "super"      }
-SwitchToken     = "switch"     !IdentifierPart { return  "switch"     }
-ThisToken       = "this"       !IdentifierPart { return  "this"       }
-ThrowToken      = "throw"      !IdentifierPart { return  "throw"      }
-TrueToken       = "true"       !IdentifierPart { return  "true"       }
-TryToken        = "try"        !IdentifierPart { return  "try"        }
-TypeofToken     = "typeof"     !IdentifierPart { return  "typeof"     }
-VarToken        = "var"        !IdentifierPart { return  "var"        }
-VoidToken       = "void"       !IdentifierPart { return  "void"       }
-WhileToken      = "while"      !IdentifierPart { return  "while"      }
-WithToken       = "with"       !IdentifierPart { return  "with"       }
+BreakToken      = "break"      !IdentifierPart  { return  "break"      }
+CaseToken       = "case"       !IdentifierPart  { return  "case"       }
+CatchToken      = "catch"      !IdentifierPart  { return  "catch"      }
+ClassToken      = "class"      !IdentifierPart  { return  "class"      }
+ConstToken      = "const"      !IdentifierPart  { return  "const"      }
+ContinueToken   = "continue"   !IdentifierPart  { return  "continue"   }
+DebuggerToken   = "debugger"   !IdentifierPart  { return  "debugger"   }
+DefaultToken    = "default"    !IdentifierPart  { return  "default"    }
+DeleteToken     = "delete"     !IdentifierPart  { return  "delete"     }
+DoToken         = "do"         !IdentifierPart  { return  "do"         }
+ElseToken       = "else"       !IdentifierPart  { return  "else"       }
+EnumToken       = "enum"       !IdentifierPart  { return  "enum"       }
+ExportToken     = "export"     !IdentifierPart  { return  "export"     }
+ExtendsToken    = "extends"    !IdentifierPart  { return  "extends"    }
+FalseToken      = "false"      !IdentifierPart  { return  "false"      }
+FinallyToken    = "finally"    !IdentifierPart  { return  "finally"    }
+ForToken        = "for"        !IdentifierPart  { return  "for"        }
+FunctionToken   = "function"   !IdentifierPart  { return  "function"   }
+GetToken        = "get"        !IdentifierPart  { return  "get"        }
+IfToken         = "if"         !IdentifierPart  { return  "if"         }
+ImportToken     = "import"     !IdentifierPart  { return  "import"     }
+InstanceofToken = "instanceof" !IdentifierPart  { return  "instanceof" }
+InToken         = "in"         !IdentifierPart  { return  "in"         }
+NewToken        = "new"        !IdentifierPart  { return  "new"        }
+NullToken       = "null"       !IdentifierPart  { return  "null"       }
+ReturnToken     = "return"     !IdentifierPart  { return  "return"     }
+SetToken        = "set"        !IdentifierPart  { return  "set"        }
+SuperToken      = "super"      !IdentifierPart  { return  "super"      }
+SwitchToken     = "switch"     !IdentifierPart  { return  "switch"     }
+ThisToken       = "this"       !IdentifierPart  { return  "this"       }
+ThrowToken      = "throw"      !IdentifierPart  { return  "throw"      }
+TrueToken       = "true"       !IdentifierPart  { return  "true"       }
+TryToken        = "try"        !IdentifierPart  { return  "try"        }
+TypeofToken     = "typeof"     !IdentifierPart  { return  "typeof"     }
+VarToken        = "var"        !IdentifierPart  { return  "var"        }
+VoidToken       = "void"       !IdentifierPart  { return  "void"       }
+WhileToken      = "while"      !IdentifierPart  { return  "while"      }
+WithToken       = "with"       !IdentifierPart  { return  "with"       }
 
 /* Skipped */
 
@@ -442,26 +373,31 @@ EOF
 /* ----- A.3 Expressions ----- */
 
 PrimaryExpression
-  = ThisToken
+  = t:ThisToken { return highlight('reserveword', t) }
   / Identifier
   / Literal
   / ArrayLiteral
   / ObjectLiteral
-  / "(" __ expression:Expression __ ")"
+  / "(" s1:__ expression:Expression s2:__ ")" {
+    return '(' + s1 + expression + s2 + ')'
+  }
 
 ArrayLiteral
-  = "[" __ elision:(Elision __)? "]"
-  / "[" __ elements:ElementList __ "]"
-  / "[" __ elements:ElementList __ "," __ elision:(Elision __)? "]"
+  = "[" s:__ elision:(e:Elision s:__ { return e + s })? "]"
+  { return '[' + s + (elision || '') + ']' }
+  / "[" s1:__ elements:ElementList s2:__ "]"
+  { return '[' + s1 + elements + s2 + ']' }
+  / "[" s1:__ elements:ElementList s2:__ "," s3:__ elision:(e:Elision s:__ { return e + s })? "]"
+  { return '[' + s1 + elements + s2 + ',' + s3 + (elision || '') + ']' }
 
 ElementList
   = first:(
-      elision:(Elision __)? element:AssignmentExpression {
+      elision:(e:Elision s:__ { return e + s })? element:AssignmentExpression {
         return (elision || '') + element
       }
     )
     rest:(
-      s1:__ "," s2:__ elision:(Elision __)? element:AssignmentExpression {
+      s1:__ "," s2:__ elision:(e:Elision s:__ {return e+s})? element:AssignmentExpression {
         return s1 + ',' + s2 + (elision || '') + element
       }
     )*
@@ -470,28 +406,36 @@ ElementList
     }
 
 Elision
-  = "," commas:(__ ",")* {
+  = "," commas:(s:__ "," {return s + ','})* {
     return ',' + commas.join('')
   }
 
 ObjectLiteral
-  = "{" __ "}"
-  / "{" __ properties:PropertyNameAndValueList __ "}"
-  / "{" __ properties:PropertyNameAndValueList __ "," __ "}"
+  = "{" s:__ "}" { return '{' + s + '}' }
+  / "{" s1:__ properties:PropertyNameAndValueList s2:__ "}"
+  { return '{' + s1 + properties + s2 + '}' }
+  / "{" s1:__ properties:PropertyNameAndValueList s2:__ "," s3:__ "}"
+  { return '{' + s1 + properties + s2 + ',' + s3 + '}' }
 
 PropertyNameAndValueList
-  = first:PropertyAssignment rest:(__ "," __ PropertyAssignment)* {
+  = first:PropertyAssignment rest:(
+      s1:__ "," s2:__ p:PropertyAssignment { return s1 + ',' + s2 + p}
+    )*
+  {
     return first + rest.join('')
   }
 
 PropertyAssignment
-  = key:PropertyName __ ":" __ value:AssignmentExpression
-  / GetToken __ key:PropertyName __
-    "(" __ ")" __
-    "{" __ body:FunctionBody __ "}"
-  / SetToken __ key:PropertyName __
-    "(" __ params:PropertySetParameterList __ ")" __
-    "{" __ body:FunctionBody __ "}"
+  = key:PropertyName s1:__ ":" s2:__ value:AssignmentExpression
+  { return key + s1 + ':' + s2 + value }
+  / get:GetToken s1:__ key:PropertyName s2:__
+    "(" s3:__ ")" s4:__
+    "{" s5:__ body:FunctionBody s6:__ "}"
+  { return highlight('reserveword', get) + s1 + key + s2 + '(' + s3 + ')' + s4 + '{' + s5 + body + s6 + '}' }
+  / set:SetToken s1:__ key:PropertyName s2:__
+    "(" s3:__ params:PropertySetParameterList s4:__ ")" s5:__
+    "{" s6:__ body:FunctionBody s7:__ "}"
+  { return highlight('reserveword', set) + s1 + key + s2 + '(' + s3 + params + s4 + ')' + s5 + '{' + s6 + body + s7 + '}' }
 
 PropertyName
   = IdentifierName
@@ -505,8 +449,8 @@ MemberExpression
   = first:(
         PrimaryExpression
       / FunctionExpression
-      / token:NewToken s1:__ callee:MemberExpression s2:__ args:Arguments {
-        return token + s1 + callee + s2 + args
+      / t:NewToken s1:__ callee:MemberExpression s2:__ args:Arguments {
+        return highlight('reserveword', t) + s1 + callee + s2 + args
       }
     )
     rest:(
@@ -523,7 +467,9 @@ MemberExpression
 
 NewExpression
   = MemberExpression
-  / NewToken __ NewExpression
+  / t:NewToken s:__ n:NewExpression {
+    return highlight('reserveword', t) + s + n
+  }
 
 CallExpression
   = first:(
@@ -573,7 +519,9 @@ LeftHandSideExpression
   / NewExpression
 
 PostfixExpression
-  = argument:LeftHandSideExpression _ operator:PostfixOperator
+  = argument:LeftHandSideExpression s:_ operator:PostfixOperator {
+    return argument + s + operator
+  }
   / LeftHandSideExpression
 
 PostfixOperator
@@ -603,7 +551,8 @@ MultiplicativeExpression
       s1:__ operator:MultiplicativeOperator s2:__ express:UnaryExpression {
         return s1 + operator + s2 + express
       }
-    )* {
+    )*
+    {
       return first + rest.join('')
     }
 
@@ -618,7 +567,8 @@ AdditiveExpression
       s1:__ operator:AdditiveOperator s2:__ express:MultiplicativeExpression {
         return s1 + operator + s2 + express
       }
-    )* {
+    )*
+    {
       return first + rest.join('')
     }
 
@@ -632,7 +582,8 @@ ShiftExpression
       s1:__ operator:ShiftOperator s2:__ express:AdditiveExpression {
         return s1 + operator + s2 + express
       }
-    )* {
+    )*
+    {
       return first + rest.join('')
     }
 
@@ -647,7 +598,8 @@ RelationalExpression
       s1:__ operator:RelationalOperator s2:__ express:ShiftExpression {
         return s1 + operator + s2 + express
       }
-    )* {
+    )*
+    {
       return first + rest.join('')
     }
 
@@ -657,7 +609,7 @@ RelationalOperator
   / $("<" !"<")
   / $(">" !">")
   / $InstanceofToken
-  / $InToken
+  / t:$InToken { return highlight('reserveword', t) }
 
 RelationalExpressionNoIn
   = first:ShiftExpression
@@ -665,9 +617,8 @@ RelationalExpressionNoIn
       s1:__ operator:RelationalOperatorNoIn s2:__ express:ShiftExpression {
         return s1 + operator + s2 + express
       }
-    )* {
-      return first + rest.join('')
-    }
+    )*
+    { return first + rest.join('') }
 
 RelationalOperatorNoIn
   = "<="
@@ -682,15 +633,19 @@ EqualityExpression
       s1:__ operator:EqualityOperator s2:__ express:RelationalExpression {
         return s1 + operator + s2 + express
       }
-    )* {
+    )*
+    {
       return first + rest.join('')
     }
 
 EqualityExpressionNoIn
   = first:RelationalExpressionNoIn
     rest:(
-      __ EqualityOperator __ RelationalExpressionNoIn
-    )* {
+      s1:__ e:EqualityOperator s2:__ r:RelationalExpressionNoIn {
+        return s1 + e + s2 + r
+      }
+    )*
+    {
       return first + rest.join('')
     }
 
@@ -702,13 +657,23 @@ EqualityOperator
 
 BitwiseANDExpression
   = first:EqualityExpression
-    rest:(__ BitwiseANDOperator __ EqualityExpression)* {
+    rest:(
+      s1:__ o:BitwiseANDOperator s2:__ e:EqualityExpression {
+        return s1 + o + s2 + e
+      }
+    )*
+    {
       return first + rest.join('')
     }
 
 BitwiseANDExpressionNoIn
   = first:EqualityExpressionNoIn
-    rest:(__ BitwiseANDOperator __ EqualityExpressionNoIn)* {
+    rest:(
+      s1:__ o:BitwiseANDOperator s2:__ e:EqualityExpressionNoIn {
+        return s1 + o + s2 + e
+      }
+    )*
+    {
       return first + rest.join('')
     }
 
@@ -717,13 +682,22 @@ BitwiseANDOperator
 
 BitwiseXORExpression
   = first:BitwiseANDExpression
-    rest:(__ BitwiseXOROperator __ BitwiseANDExpression)* {
+    rest:(
+      s1:__ o:BitwiseXOROperator s2:__ e:BitwiseANDExpression {
+        return s1 + o + s2 + e
+      }
+    )*
+    {
       return first + rest.join('')
     }
 
 BitwiseXORExpressionNoIn
   = first:BitwiseANDExpressionNoIn
-    rest:(__ BitwiseXOROperator __ BitwiseANDExpressionNoIn)* {
+    rest:(
+      s1:__ o:BitwiseXOROperator s2:__ e:BitwiseANDExpressionNoIn {
+        return s1 + o + s2 + e
+      }
+    )* {
       return first + rest.join('')
     }
 
@@ -732,13 +706,21 @@ BitwiseXOROperator
 
 BitwiseORExpression
   = first:BitwiseXORExpression
-    rest:(__ BitwiseOROperator __ BitwiseXORExpression)* {
+    rest:(
+      s1:__ o:BitwiseOROperator s2:__ e:BitwiseXORExpression {
+        return s1 + o + s2 + e
+      }
+    )* {
       return first + rest.join('')
     }
 
 BitwiseORExpressionNoIn
   = first:BitwiseXORExpressionNoIn
-    rest:(__ BitwiseOROperator __ BitwiseXORExpressionNoIn)* {
+    rest:(
+      s1:__ o:BitwiseOROperator s2:__ e:BitwiseXORExpressionNoIn {
+        return s1 + o + s2 + e
+      }
+    )* {
       return first + rest.join('')
     }
 
@@ -747,13 +729,22 @@ BitwiseOROperator
 
 LogicalANDExpression
   = first:BitwiseORExpression
-    rest:(__ LogicalANDOperator __ BitwiseORExpression)* {
+    rest:(
+      s1:__ o:LogicalANDOperator s2:__ e:BitwiseORExpression {
+        return s1 + o + s2 + e
+      }
+    )*
+    {
       return first + rest.join('')
     }
 
 LogicalANDExpressionNoIn
   = first:BitwiseORExpressionNoIn
-    rest:(__ LogicalANDOperator __ BitwiseORExpressionNoIn)* {
+    rest:(
+      s1:__ o:LogicalANDOperator s2:__ e:BitwiseORExpressionNoIn {
+        return s1 + o + s2 + e
+      }
+    )* {
       return first + rest.join('')
     }
 
@@ -762,13 +753,21 @@ LogicalANDOperator
 
 LogicalORExpression
   = first:LogicalANDExpression
-    rest:(__ LogicalOROperator __ LogicalANDExpression)* {
+    rest:(
+      s1:__ o:LogicalOROperator s2:__ e:LogicalANDExpression {
+        return s1 + o + s2 + e
+      }
+    )* {
       return first + rest.join('')
     }
 
 LogicalORExpressionNoIn
   = first:LogicalANDExpressionNoIn
-    rest:(__ LogicalOROperator __ LogicalANDExpressionNoIn)* {
+    rest:(
+      s1:__ o:LogicalOROperator s2:__ e:LogicalANDExpressionNoIn {
+        return s1 + o + s2 + e
+      }
+    )* {
       return first + rest.join('')
     }
 
@@ -776,15 +775,19 @@ LogicalOROperator
   = "||"
 
 ConditionalExpression
-  = test:LogicalORExpression __
-    "?" __ consequent:AssignmentExpression __
-    ":" __ alternate:AssignmentExpression
+  = test:LogicalORExpression s1:__
+    "?" s2:__ consequent:AssignmentExpression s3:__
+    ":" s4:__ alternate:AssignmentExpression {
+      return test + s1 + highlight('operator', '?') + s2 + consequent + s3 + highlight('operator', ':') + s4 + alternate
+    }
   / LogicalORExpression
 
 ConditionalExpressionNoIn
-  = test:LogicalORExpressionNoIn __
-    "?" __ consequent:AssignmentExpression __
-    ":" __ alternate:AssignmentExpressionNoIn
+  = test:LogicalORExpressionNoIn s1:__
+    "?" s2:__ consequent:AssignmentExpression s3:__
+    ":" s4:__ alternate:AssignmentExpressionNoIn {
+      return test + s1 + highlight('operator', '?') + s2 + consequent + s3 + highlight('operator', ':') + s4 + alternate
+    }
   / LogicalORExpressionNoIn
 
 AssignmentExpression
@@ -864,7 +867,7 @@ Statement
   / DebuggerStatement
 
 Block
-  = "{" s:__ body:(StatementList __)? "}" {
+  = "{" s:__ body:(l:StatementList s:__ {return l+s})? "}" {
     return '{' + s + (body || '') + '}'
   }
 
@@ -874,9 +877,10 @@ StatementList
       s:__ state:Statement {
         return s + state
       }
-    )* {
-    return first + rest.join('')
-  }
+    )*
+    {
+      return first + rest.join('')
+    }
 
 VariableStatement
   = reserveword:VarToken s:__ declarations:VariableDeclarationList e:EOS {
@@ -889,18 +893,20 @@ VariableDeclarationList
       s1:__ "," s2:__ dec:VariableDeclaration {
         return s1 + ',' + s2 + dec
       }
-    )* {
-    return first + rest.join('')
-  }
+    )*
+    {
+      return first + rest.join('')
+    }
 
 VariableDeclarationListNoIn
   = first:VariableDeclarationNoIn rest:(
       s1:__ "," s2:__ dec:VariableDeclarationNoIn {
         return s1 + ',' + s2 + dec
       }
-    )* {
-    return first + rest.join('')
-  }
+    )*
+    {
+      return first + rest.join('')
+    }
 
 VariableDeclaration
   = id:Identifier
@@ -935,74 +941,109 @@ ExpressionStatement
   }
 
 IfStatement
-  = IfToken __ "(" __ test:Expression __ ")" __
-    consequent:Statement __
-    ElseToken __
+  = t:IfToken s1:__ "(" s2:__ test:Expression s3:__ ")" s4:__
+    consequent:Statement s5:__
+    elseT:ElseToken s6:__
     alternate:Statement
-  / IfToken __ "(" __ test:Expression __ ")" __
+  {
+    return highlight('reserveword', t) + s1 + '(' + s2 + test + s3 + ')' +
+    s4 + consequent + s5 +
+    highlight('reserveword', elseT) + s6 +
+    alternate
+  }
+  / t:IfToken s1:__ "(" s2:__ test:Expression s3:__ ")" s4:__
     consequent:Statement
+  {
+    return highlight('reserveword', t) + s1 + '(' + s2 + test + s3 + ')' +
+    s4 + consequent
+  }
 
 IterationStatement
-  = DoToken __
-    body:Statement __
-    WhileToken __ "(" __ test:Expression __ ")" EOS
-  / WhileToken __ "(" __ test:Expression __ ")" __
+  = doT:DoToken s1:__
+    body:Statement s2:__
+    whileT:WhileToken s3:__ "(" s4:__ test:Expression s5:__ ")" e:EOS
+  { return highlight('reserveword', doT) + s1 +
+    body + s2 + highlight('reserveword', whileT) + s3 + '(' + s4 + test + s5 + ')' + e }
+  / whileT:WhileToken s1:__ "(" s2:__ test:Expression s3:__ ")" s4:__
     body:Statement
-  / ForToken __
-    "(" __
-    init:(ExpressionNoIn __)? ";" __
-    test:(Expression __)? ";" __
-    update:(Expression __)?
-    ")" __
+  { return highlight('reserveword', whileT) + s1 + '(' + s2 + test + s3 + ')' + s4 + body }
+  / forT:ForToken s1:__
+    "(" s2:__
+    init:(e:ExpressionNoIn s:__ {return e+s})? ";" s3:__
+    test:(e:Expression s:__ {return e+s})? ";" s4:__
+    update:(e:Expression s:__ {return e+s})?
+    ")" s5:__
     body:Statement
-  / ForToken __
-    "(" __
-    VarToken __ declarations:VariableDeclarationListNoIn __ ";" __
-    test:(Expression __)? ";" __
-    update:(Expression __)?
-    ")" __
+  { return highlight('reserveword', forT) + s1 + '(' + s2 + (init || '') + ';' + s3 + (test || '') + ';' + s4 + (update || '') + ')' + s5 + body }
+  / forT:ForToken s1:__
+    "(" s2:__
+    varT:VarToken s3:__ declarations:VariableDeclarationListNoIn s4:__ ";" s5:__
+    test:(e:Expression s:__ {return e+s})? ";" s6:__
+    update:(e:Expression s:__ {return e+s})?
+    ")" s7:__
     body:Statement
-  / ForToken __
-    "(" __
-    left:LeftHandSideExpression __
-    InToken __
-    right:Expression __
-    ")" __
+  { return highlight('reserveword', forT) + s1 + '(' +
+      s2 + highlight('reserveword', varT) + s3 + declarations + s4 + ';' + s5 +
+      (test || '') + ';' + s6 + (update || '') +
+    ')' + s7 + body }
+  / forT:ForToken s1:__
+    "(" s2:__
+    left:LeftHandSideExpression s3:__
+    inT:InToken s4:__
+    right:Expression s5:__
+    ")" s6:__
     body:Statement
-  / ForToken __
-    "(" __
-    VarToken __ declarations:VariableDeclarationListNoIn __
-    InToken __
-    right:Expression __
-    ")" __
+  { return highlight('reserveword', forT) + s1 + '(' +
+      s2 + left + s3 + highlight('reserveword', inT) + s4 + right + s5 +
+    ')' + s6 + body }
+  / forT:ForToken s1:__
+    "(" s2:__
+    varT:VarToken s3:__ declarations:VariableDeclarationListNoIn s4:__
+    inT:InToken s5:__
+    right:Expression s6:__
+    ")" s7:__
     body:Statement
+  { return highlight('reserveword', forT) + s1 + '(' +
+      s2 + highlight('reserveword', varT) + s3 + declarations + s4 + highlight('reserveword', inT) + s5 + right + s6 +
+    ')' + s7 + body }
 
 ContinueStatement
   = ContinueToken EOS 
-  / ContinueToken _ label:Identifier EOS
+  / t:ContinueToken s:_ label:Identifier e:EOS {
+    return highlight('reserveword', t) + s + label + e
+  }
 
 BreakStatement
   = BreakToken EOS
-  / BreakToken _ label:Identifier EOS
+  / t:BreakToken s:_ label:Identifier e:EOS {
+    return highlight('reserveword', t) + s + label + e
+  }
 
 ReturnStatement
   = ReturnToken EOS
-  / ReturnToken _ argument:Expression EOS
+  / t:ReturnToken _ argument:Expression e:EOS {
+    return highlight('reserveword', t) + s + argument + e
+  }
 
 WithStatement
-  = WithToken __ "(" __ object:Expression __ ")" __
-    body:Statement
+  = t:WithToken s1:__ "(" s2:__ object:Expression s3:__ ")" s4:__
+    body:Statement {
+      return highlight('reserveword', t) + s1 + '(' + s2 + object + s3 + ')' + s4 + body
+    }
 
 SwitchStatement
-  = SwitchToken __ "(" __ discriminant:Expression __ ")" __
-    cases:CaseBlock
+  = t:SwitchToken s1:__ "(" s2:__ discriminant:Expression s3:__ ")" s4:__
+    cases:CaseBlock {
+      return highlight('reserveword', t) + s1 + '(' + s2 + discriminant + s3 + ')' + s4 + cases
+    }
 
 CaseBlock
-  = "{" __ clauses:(CaseClauses __)? "}" 
-  / "{" __
-    before:(CaseClauses __)?
-    default_:DefaultClause __
-    after:(CaseClauses __)? "}"
+  = "{" s:__ clauses:(c:CaseClauses s:__ {return c+s})? "}" { return '{' + s + (clauses || '') + '}'}
+  / "{" s0:__
+    before:(c:CaseClauses s:__ {return c+s})?
+    default_:DefaultClause s:__
+    after:(c:CaseClauses s:__{return c+s})? "}"
+  { return '{' + s0 + (before || '') + default_ + s + after + '}' }
 
 CaseClauses
   = first:CaseClause rest:(__ CaseClause)* {
@@ -1010,24 +1051,37 @@ CaseClauses
   }
 
 CaseClause
-  = CaseToken __ test:Expression __ ":" consequent:(__ StatementList)?
+  = t:CaseToken s1:__ test:Expression s2:__ ":" consequent:(s:__ l:StatementList {return s+l})? {
+    return highlight('reserveword', t) + s1 + test + s2 + ':' + (consequent || '')
+  }
 
 DefaultClause
-  = DefaultToken __ ":" consequent:(__ StatementList)?
+  = t:DefaultToken s:__ ":" consequent:(s:__ l:StatementList {return s+l})? {
+    return highlight('reserveword', t) + s + ':' + (consequent || '')
+  }
 
 LabelledStatement
-  = label:Identifier __ ":" __ body:Statement
+  = label:Identifier s1:__ ":" s2:__ body:Statement {
+    return label + s1 + ':' + s2 + body
+  }
 
 ThrowStatement
-  = ThrowToken _ argument:Expression EOS
+  = t:ThrowToken s:_ argument:Expression e:EOS {
+    return highlight('reserveword', t) + s + argument + e
+  }
 
 TryStatement
-  = TryToken __ block:Block __ handler:Catch __ finalizer:Finally
-  / TryToken __ block:Block __ handler:Catch
-  / TryToken __ block:Block __ finalizer:Finally
+  = t:TryToken s1:__ block:Block s2:__ handler:Catch s3:__ finalizer:Finally
+  { return highlight('reserveword', t) + s1 + block + s2 + handler + s3 + finalizer }
+  / t:TryToken s1:__ block:Block s2:__ handler:Catch
+  { return highlight('reserveword', t) + s1 + block + s2 + handler }
+  / t:TryToken s1:__ block:Block s2:__ finalizer:Finally
+  { return highlight('reserveword', t) + s1 + block + s2 + finalizer }
 
 Catch
-  = CatchToken __ "(" __ param:Identifier __ ")" __ body:Block
+  = t:CatchToken s1:__ "(" s2:__ param:Identifier s3:__ ")" s4:__ body:Block {
+    return highlight('reserveword', t) + s1 + '(' + s2 + param + s3 + ')' + s4 + body
+  }
 
 Finally
   = reserveword:FinallyToken s:__ block:Block {

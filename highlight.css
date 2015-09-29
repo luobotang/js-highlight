@@ -15,6 +15,7 @@
 .highlight-regex {
   color: orange;
 }
-.highlight-callee {
-  color: cyan;
+.highlight-callee,
+.highlight-operator {
+  color: #33c;
 }
