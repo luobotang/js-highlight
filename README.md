@@ -2,6 +2,12 @@
 
 Highlight JavaScript code with support of [PEG.js](https://github.com/pegjs/pegjs).
 
+## install
+
+```bash
+npm install js-highlight
+```
+
 ## usage
 
 ```html
