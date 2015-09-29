@@ -21,6 +21,7 @@ module.exports = function (grunt) {
 	})
 
 	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
 		pegbuild: {
 			build: {
 				src: 'lib/syntax',
@@ -38,11 +39,21 @@ module.exports = function (grunt) {
 				src: 'css/highlight.less',
 				dest: 'highlight.css'
 			}
+		},
+		uglify: {
+			dist: {
+				options: {
+					banner: '/* js-highlight v<%= pkg.version %> luobotang */\n'
+				},
+				src: 'highlight.js',
+				dest: 'highlight.min.js'
+			}
 		}
 	})
 
 	grunt.loadNpmTasks('grunt-browserify')
 	grunt.loadNpmTasks('grunt-contrib-less')
+	grunt.loadNpmTasks('grunt-contrib-uglify')
 
 	grunt.registerTask('default', ['pegbuild:build', 'browserify:build', 'less:build'])
 }

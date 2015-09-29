@@ -2,11 +2,13 @@
   "name": "js-highlight",
   "version": "0.1.0",
   "description": "Highlight JavaScript code.",
-  "main": "highlight.js",
+  "main": "lib/highlight.js",
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "domready": "^0.3.0"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-browserify": "^4.0.1",
